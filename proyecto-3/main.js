@@ -49,7 +49,7 @@ async function buscarImagenes(query, page) {
     showMessage('Error fetching images. Please try again later.')
   }
 }
-
+// hehe
 function showMessage(message) {
   const resultsBusqueda = document.querySelector('#results')
   resultsBusqueda.innerHTML = ''
