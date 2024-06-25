@@ -68,7 +68,7 @@ formBusqueda.addEventListener('submit', (e) => {
   const query = searchInput.value
   buscarImagenes(query, page)
 })
-
+// dang
 document.addEventListener('DOMContentLoaded', () => {
   buscarImagenes(keyword, page)
 })
