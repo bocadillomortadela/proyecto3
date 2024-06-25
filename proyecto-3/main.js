@@ -6,7 +6,6 @@ const divapp = document.querySelector('#app')
 const header = headerCreate()
 divapp.appendChild(header)
 
-// Crear y añadir el contenedor de resultados y mensajes
 const resultsDiv = document.createElement('div')
 resultsDiv.id = 'results'
 const main = document.createElement('main')
@@ -20,17 +19,14 @@ main.appendChild(resultsDiv)
 divapp.appendChild(main)
 console.log('resultsDiv appended')
 
-// Variables de búsqueda y paginación
-let keyword = 'cats' // Búsqueda predeterminada
+let keyword = 'cats'
 let page = 1
 const accessKey = 'lQCqXdI40O1n6LjRoLvDIQp-eevTJ8TSK2ssSCHwTcU'
 
-// Función para buscar imágenes
 async function buscarImagenes(query, page) {
   const searchInput = document.getElementById('searchInput')
   keyword = query || (searchInput ? searchInput.value : keyword)
 
-  // Mostrar mensaje si el input está vacío
   if (!keyword.trim()) {
     showMessage('Please enter a search term.')
     return
@@ -42,7 +38,6 @@ async function buscarImagenes(query, page) {
     const data = await response.json()
     console.log(data)
 
-    // Mostrar mensaje si no hay resultados
     if (data.results.length === 0) {
       showMessage('No results found.')
     } else {
@@ -55,20 +50,17 @@ async function buscarImagenes(query, page) {
   }
 }
 
-// Función para mostrar mensajes
 function showMessage(message) {
   const resultsBusqueda = document.querySelector('#results')
-  resultsBusqueda.innerHTML = '' // Limpiar resultados anteriores
+  resultsBusqueda.innerHTML = ''
   messageDiv.textContent = message
   messageDiv.style.display = 'block'
 }
 
-// Función para ocultar mensajes
 function hideMessage() {
   messageDiv.style.display = 'none'
 }
 
-// Manejar el evento de envío del formulario de búsqueda
 const formBusqueda = document.querySelector('#searchForm')
 formBusqueda.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -77,12 +69,11 @@ formBusqueda.addEventListener('submit', (e) => {
   buscarImagenes(query, page)
 })
 
-// Realizar una búsqueda predeterminada al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   buscarImagenes(keyword, page)
 })
 
-// Cargar más imágenes al hacer scroll hacia abajo
+// scroll infinite
 window.addEventListener('scroll', () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
     page++
