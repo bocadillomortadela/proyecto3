@@ -1,0 +1,38 @@
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: rebeccapurple;
+}
+
+#searchInput {
+  padding-right: 40px;
+  width: 70em;
+  height: 2em;
+}
+
+#searchButton {
+  position: absolute;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+#searchButton img {
+  width: 20px;
+  height: 20px;
+}
+#logo-div {
+  display: flex;
+  align-items: center;
+}
+#logo-div > span {
+  padding-left: 50px;
+}
