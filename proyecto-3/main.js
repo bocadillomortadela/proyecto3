@@ -100,3 +100,4 @@ logoDiv.addEventListener('click', () => {
   page = 1
   buscarImagenes(keyword, page)
 })
+//
