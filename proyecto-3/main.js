@@ -35,19 +35,34 @@ async function buscarImagenes(query, page) {
   const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}`
   try {
     const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
     const data = await response.json()
     console.log(data)
 
     if (data.results.length === 0) {
-      showMessage('No results found.')
+      // Realizar una nueva búsqueda con la palabra 'gatos'
+      const fallbackKeyword = 'gatos'
+      const fallbackUrl = `https://api.unsplash.com/search/photos?page=${page}&query=${fallbackKeyword}&client_id=${accessKey}`
+      const fallbackResponse = await fetch(fallbackUrl)
+      const fallbackData = await fallbackResponse.json()
+      if (fallbackData.results.length === 0) {
+        showMessage('No results found. Please try another search term.')
+      } else {
+        showMessage(
+          'No results found for your search. Here are some images of cats instead. Please try another search term.'
+        )
+        displayImagesFromCards(fallbackData.results, page)
+      }
     } else {
       hideMessage()
       displayImagesFromCards(data.results, page)
     }
   } catch (error) {
     console.error('Error fetching images:', error)
-    showMessage('Error fetching images. Please try again later.')
   }
+  searchInput.value = ''
 }
 // hehe
 function showMessage(message) {
@@ -61,22 +76,27 @@ function hideMessage() {
   messageDiv.style.display = 'none'
 }
 
-const formBusqueda = document.querySelector('#searchForm')
+const formBusqueda = document.getElementById('searchForm')
 formBusqueda.addEventListener('submit', (e) => {
   e.preventDefault()
   page = 1
   const query = searchInput.value
+  console.log('Search query:', query)
   buscarImagenes(query, page)
 })
-// dang
+
 document.addEventListener('DOMContentLoaded', () => {
   buscarImagenes(keyword, page)
 })
-
 // scroll infinite
 window.addEventListener('scroll', () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
     page++
     buscarImagenes(keyword, page)
   }
+})
+const logoDiv = document.getElementById('logo-div')
+logoDiv.addEventListener('click', () => {
+  page = 1
+  buscarImagenes(keyword, page)
 })

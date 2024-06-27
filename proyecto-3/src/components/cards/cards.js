@@ -19,10 +19,20 @@ export const displayImages = (results, page) => {
     imageLink.appendChild(image)
 
     const author = document.createElement('p')
-    author.textContent = `Photo by ${result.user.name}`
+    author.textContent = `${result.user.name}`
+
+    const authorProfileImage = document.createElement('img')
+    authorProfileImage.src = result.user.profile_image.small
+    authorProfileImage.alt = result.user.name
+    authorProfileImage.className = 'author-profile-image'
+
+    const authorDiv = document.createElement('div')
+    authorDiv.className = 'authorDiv'
+    authorDiv.appendChild(authorProfileImage)
+    authorDiv.appendChild(author)
 
     card.appendChild(imageLink)
-    card.appendChild(author)
+    card.appendChild(authorDiv)
     resultsBusqueda.appendChild(card)
   })
 }
